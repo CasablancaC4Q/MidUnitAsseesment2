@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import comli.example.c4q.midassest.model.numbers;
+
 
 
 
@@ -65,5 +65,6 @@ public class NumbersFragment extends Fragment {
 
         return view;
     }
+}
 
 
