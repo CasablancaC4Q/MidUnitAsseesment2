@@ -1,5 +1,8 @@
 package comli.example.c4q.midassest;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +11,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private TextView textView;
-    private midTermAsyncTask asyncTask;
 
 
     @Override
@@ -16,32 +18,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        asyncTask = new midTermAsyncTask(this);
-        asyncTask.execute(50);
         textView = findViewById(R.id.textview);
 
-
+        AsyncTaskStuff asyncTaskStuff = new AsyncTaskStuff(this);
+        asyncTaskStuff.execute(0);
     }
-    public class midTermAsyncTask extends AsyncTask<Integer, Integer, Integer> {
 
-        MainActivity activity;
+    private class AsyncTaskStuff extends AsyncTask<Integer,Integer,Integer>{
 
-        public midTermAsyncTask(MainActivity activity) {
-            this.activity = activity;
+        Context context;
+        public AsyncTaskStuff(Context context) {
+            this.context = context;
         }
 
         @Override
         protected Integer doInBackground(Integer... integers) {
-            int r = integers[0];
-            for (int i = 0; i < 100000; i++) {
-                try {Thread.sleep(500);
-
-                }catch (InterruptedException e ){
-                    e.printStackTrace();
-                }
+            int i;
+            for (i = 0; i < 100000 ; i++) {
                 publishProgress(i);
             }
-            return 1000000-r;
+            return i;
         }
 
         @Override
@@ -52,19 +48,18 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Integer integer) {
             super.onPostExecute(integer);
-            if (activity!= null){
-                activity.textView.setText("loops completed"+integer);
-            }
+            textView.setText("Loops completed: " + integer);
+            Intent intent = new Intent(context,LoginActivity.class);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+
 
         }
 
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
-            int progress = values[0];
-            if (activity!= null){
-                activity.textView.setText("loops compeleted  "  + progress);
-            }
+            textView.setText("Loops completed: " + values[0]);
         }
+
     }
-}
