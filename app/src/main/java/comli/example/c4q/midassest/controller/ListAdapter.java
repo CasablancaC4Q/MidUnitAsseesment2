@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 import comli.example.c4q.midassest.R;
 import comli.example.c4q.midassest.SingleNumberFragment;
+import comli.example.c4q.midassest.model.Numbers;
 
 /**
  * Created by c4q on 1/16/18.
@@ -21,7 +22,7 @@ import comli.example.c4q.midassest.SingleNumberFragment;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
 
-    private ArrayList<Number> numbers;
+    private ArrayList<Numbers> numbers;
     private FragmentManager fragmentManager;
 
     public ListAdapter(FragmentManager fragmentManager) {
@@ -32,7 +33,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
         return fragmentManager;
     }
 
-    public void setNumbers(ArrayList<Number> numbers) {
+    public void setNumbers(ArrayList<Numbers> numbers) {
         this.numbers = numbers;
     }
 
@@ -44,7 +45,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Number number = numbers.get(position);
+        Numbers number = numbers.get(position);
         holder.onBind(number);
         holder.textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,8 +77,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ViewHolder>  {
             textView = itemView.findViewById(R.id.number);
         }
 
-        public void onBind(Number number){
-            textView.setText(String.valueOf(number.getNumber()));
+        public void onBind(Numbers number){
+            textView.setText(String.valueOf(number.getnumbers()));
         }
     }
 }
